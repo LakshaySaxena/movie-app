@@ -2,6 +2,7 @@ import { data } from "../data";
 import Navbar from "./Navbar";
 import MovieCard from "./MovieCard";
 import React from "react";
+import { addMovies } from '../actions/index';
 
 class App extends React.Component {
 
@@ -13,15 +14,13 @@ class App extends React.Component {
     } ) ;
     // make api call
    // dispatch action .
-    store.dispatch ({
-      type : 'ADD_MOVIES', 
-      movies : data
-    });
+    store.dispatch(addMovies(data));
 
     console.log('STATE:-', this.props.store.getState());
+    
   }
   render(){
-  const movies= this.props.store.getState();
+  const {list}= this.props.store.getState(); // this.props.store.getState() contains object now , list and favourites so we destructured and picked only list key
   return (
     <div className="App">
     <Navbar /> 
@@ -32,7 +31,7 @@ class App extends React.Component {
       </div>        
 
         <div className="List">
-          {movies.map((movie,index)=>(
+          {list.map((movie,index)=>(
             <MovieCard movie ={movie} key={`movies ${index}`}/>
           ))}
         </div>
