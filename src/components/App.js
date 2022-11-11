@@ -20,8 +20,8 @@ class App extends React.Component {
     
   }
   isMovieFavourite=(movie)=>{
-    const {favourites} = this.props.store.getState();
-    const index= favourites.indexOf(movie);
+    const {movies} = this.props.store.getState();
+    const index= movies.favourites.indexOf(movie);
     if (index!==-1){
       //found the movie
       return true;
@@ -32,8 +32,9 @@ class App extends React.Component {
     this.props.store.dispatch(SetShowFavourites(val))
   }
   render(){
-  const {list,favourites,showFavourites}= this.props.store.getState(); // this.props.store.getState() contains object now , list and favourites so we destructured and picked only list key
-  console.log('RENDER:-', this.props.store.getState());
+    const { movies } =this.props.store.getState(); // { movies: {}, search: {}}
+    const { list, favourites, showFavourites}= movies;
+      console.log('RENDER:-', this.props.store.getState());
 
   const displayMovie= showFavourites ? favourites: list;
   return (

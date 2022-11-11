@@ -1,11 +1,14 @@
 import {ADD_MOVIES,ADD_FAVOURITES,REMOVE_FAVOURITES,SET_SHOW_FAVOURITES} from '../actions/index'
+import { combineReducers } from 'redux';
 
 const initialMovieState={
     list: [],
     favourites: [],
     showFavourites: false
 }
-export default function movies( state =initialMovieState, action){
+export  function movies( state =initialMovieState, action){
+    console.log('MOVIE REDUCER');
+
 if(action.type ===ADD_MOVIES){
     // ...state we picked whole initialMovieState object and then we updated value of list
     return { ...state, list: action.movies}; 
@@ -24,3 +27,27 @@ else if(action.type ===SET_SHOW_FAVOURITES){
 return state;
 }
 
+const initialSearchState={
+    result:{}
+}
+export function search(state={initialSearchState}, action){
+    console.log('SEARCH REDUCER');
+    return state;
+}
+
+const initialRootState = {
+    movies: initialMovieState,
+     search: initialSearchState
+};
+
+//   export default function rootReducer (state = initialRootState, action) {
+//      return {
+//       movies: movies(state.movies, action),
+//       search: search(state.search, action)
+//      }
+//     }  
+
+    export default combineReducers({
+        movies,
+        search
+    });

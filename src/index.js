@@ -1,13 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createStore } from 'redux';
-
 import './index.css';
 import App from './components/App';
 import reportWebVitals from './reportWebVitals';
 import movies from './reducers';
-
-const store = createStore(movies);
+import rootReducer from './reducers';
+const store = createStore(rootReducer);
 
 console.log("store", store);
 // console.log("before state", store.getState());
