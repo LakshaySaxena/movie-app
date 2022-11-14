@@ -1,13 +1,42 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { createStore } from 'redux';
+import { createStore , applyMiddleware} from 'redux';
+import thunk from 'redux-thunk';
 import './index.css';
 import App from './components/App';
 import reportWebVitals from './reportWebVitals';
 import movies from './reducers';
 import rootReducer from './reducers';
-const store = createStore(rootReducer);
 
+// function logger(obk, next, action)
+// const logger = function ({ dispatch, getState }) {
+// return function (next) {
+// return function (action) {
+// // middleware code
+// console. log('ACTION_TYPE = ', action.type);
+// next(action);
+// }
+// }
+// }
+// same logger() as above but a cleaner way, a function calling 2nd function, 2nd  function calling 3rd
+const logger = ({ dispatch, getState }) => (next) => (action) => {
+  // logger code
+  //console. log('ACTION_TYPE = ', action.type);
+  next (action) ;
+}
+
+//middleware as handleMovieSearch returns a function and not object
+// const thunk = ({ dispatch, getState }) => (next) => (action) => {
+//   // logger code
+//   if (typeof action === 'function') {
+//   action(dispatch); 
+//   return;
+//   }
+//   next (action);
+//   }
+
+
+const store = createStore(rootReducer,applyMiddleware(logger,thunk));
 console.log("store", store);
 // console.log("before state", store.getState());
 
